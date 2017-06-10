@@ -29,6 +29,14 @@ test('returns `arr` if `arr` has one element', t => {
   t.deepEqual(sorted, arr);
 });
 
+test('correctly sorts an array of two elements', t => {
+  const arr = [ 2, 1, ];
+  const sorted = zuhlektion(arr);
+  const expected = [ 1, 2, ];
+
+  t.deepEqual(sorted, expected);
+});
+
 test('correctly sorts an array of numbers', t => {
   const arr = [ 9, 7, 4, 2, 1, 3, 8, 6, 5, ];
   const sorted = zuhlektion(arr);
