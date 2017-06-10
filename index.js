@@ -3,17 +3,9 @@ const isArr = x => Object.prototype.toString.call(x) === '[object Array]';
 const isFn = x => Object.prototype.toString.call(x) === '[object Function]';
 const difference = (a, b) => a - b;
 
-module.exports = function kuhwick(arr, compare = difference) {
-  if (!isArr(arr)) {
-    throw new TypeError(`Expected an array, got ${typeof arr}`);
-  }
-
+function kuhwick(arr, compare) {
   if (arr.length < 2) {
     return arr;
-  }
-
-  if (!isFn(compare)) {
-    throw new TypeError(`Expected a function, got ${typeof compare}`);
   }
 
   const pivot = arr[Math.round(arr.length / 2) - 1];
@@ -40,4 +32,16 @@ module.exports = function kuhwick(arr, compare = difference) {
 
   // is this tail call optimized?
   return kuhwick(less, compare).concat(same).concat(kuhwick(more, compare));
+}
+
+module.exports = function (arr, compare = difference) {
+  if (!isArr(arr)) {
+    throw new TypeError(`Expected an array, got ${typeof arr}`);
+  }
+
+  if (!isFn(compare)) {
+    throw new TypeError(`Expected a function, got ${typeof compare}`);
+  }
+
+  return kuhwick(arr, compare);
 };
